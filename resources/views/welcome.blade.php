@@ -1,3 +1,13 @@
+<<<<<<< HEAD
+@extends('layouts.app')
+
+@section('content')
+    {{-- Orden: hero principal, sección café/video y el carrusel de servicios --}}
+    @include('sections.hero')
+    @include('sections.hero2')
+    @include('sections.products')
+@endsection
+=======
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
@@ -221,3 +231,4 @@
         @endif
     </body>
 </html>
+>>>>>>> f5e469399bb72d8bbc56798a0209324f59c1ffbc

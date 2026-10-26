@@ -12,7 +12,12 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
+<<<<<<< HEAD
+        $middleware->redirectGuestsTo('/admin/login');
+        $middleware->redirectUsersTo('/admin');
+=======
         //
+>>>>>>> f5e469399bb72d8bbc56798a0209324f59c1ffbc
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->shouldRenderJsonWhen(
