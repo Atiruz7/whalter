@@ -2,8 +2,10 @@
     <div class="mx-auto grid max-w-6xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-3">
         {{-- Marca --}}
         <div>
-            <p class="font-display text-2xl font-bold">{{ config('site.brand.name') }}</p>
-            <p class="mt-3 max-w-xs text-sm leading-relaxed text-blanco/70">
+            <p class="font-display text-2xl font-bold text-blanco">{{ config('site.brand.name') }}</p>
+            <p class="text-xs font-bold uppercase tracking-widest text-ambar">Marca Personal</p>
+            <p class="mt-1 text-sm font-medium text-blanco/90">Walther Qquesuallpa Yucra</p>
+            <p class="mt-3 max-w-xs text-xs leading-relaxed text-blanco/70">
                 {{ config('site.brand.tagline') }}
             </p>
         </div>

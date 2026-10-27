@@ -28,10 +28,17 @@ return [
         'login_url' => '/admin/login',
     ],
 
-    // Atajos del header: si el array está vacío no se muestra la navegación.
+    // Atajos del header: enlaces a las secciones principales de la marca.
     'nav' => [
         ['label' => 'Inicio', 'url' => '#inicio'],
+        ['label' => 'Identidad', 'url' => '#identidad'],
+        ['label' => 'Valores', 'url' => '#valores'],
+        ['label' => 'Pilares', 'url' => '#pilares'],
+        ['label' => 'Propuesta', 'url' => '#propuesta'],
+        ['label' => 'Objetivos', 'url' => '#objetivos'],
+        ['label' => 'Sobre Walther', 'url' => '#sobre-walther'],
         ['label' => 'Servicios', 'url' => '#servicios'],
+        ['label' => 'Contacto', 'url' => '#contacto'],
     ],
 
     /*
