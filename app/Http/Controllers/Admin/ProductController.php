@@ -26,6 +26,7 @@ class ProductController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $data = $this->validateRequest($request);
+        $data['is_active'] = $request->boolean('is_active', true);
 
         if ($request->hasFile('image')) {
             $data['image_path'] = 'storage/'.$request->file('image')->store('products', 'public');
@@ -48,6 +49,12 @@ class ProductController extends Controller
     public function update(Request $request, Product $product): RedirectResponse
     {
         $data = $this->validateRequest($request);
+        $data['is_active'] = $request->boolean('is_active');
+
+        if ($request->boolean('remove_image')) {
+            $this->deleteImage($product);
+            $data['image_path'] = null;
+        }
 
         if ($request->hasFile('image')) {
             $this->deleteImage($product);
@@ -81,6 +88,7 @@ class ProductController extends Controller
             'description' => ['nullable', 'string', 'max:1000'],
             'price' => ['nullable', 'string', 'max:50'],
             'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
+            'remove_image' => ['nullable', 'boolean'],
             'sort_order' => ['nullable', 'integer', 'min:0', 'max:999'],
             'is_active' => ['nullable', 'boolean'],
         ], [
@@ -97,7 +105,10 @@ class ProductController extends Controller
     private function deleteImage(Product $product): void
     {
         if ($product->image_path) {
-            Storage::disk('public')->delete(ltrim($product->image_path, 'storage/'));
+            $diskPath = preg_replace('#^storage/#', '', $product->image_path);
+            if ($diskPath && Storage::disk('public')->exists($diskPath)) {
+                Storage::disk('public')->delete($diskPath);
+            }
         }
     }
 }

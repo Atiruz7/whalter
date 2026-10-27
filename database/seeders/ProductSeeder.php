@@ -41,7 +41,10 @@ class ProductSeeder extends Seeder
         ];
 
         foreach ($services as $service) {
-            Product::create($service + ['is_active' => true]);
+            Product::firstOrCreate(
+                ['name' => $service['name']],
+                $service + ['is_active' => true]
+            );
         }
     }
 }

@@ -2,11 +2,8 @@
 
 namespace App\Providers;
 
-<<<<<<< HEAD
 use App\Models\SiteSetting;
 use Illuminate\Support\Facades\Schema;
-=======
->>>>>>> f5e469399bb72d8bbc56798a0209324f59c1ffbc
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -21,7 +18,6 @@ class AppServiceProvider extends ServiceProvider
 
     /**
      * Bootstrap any application services.
-<<<<<<< HEAD
      *
      * Carga los datos guardados desde el panel administrativo y los
      * sobreescribe sobre config/site.php para que las vistas siempre
@@ -56,7 +52,10 @@ class AppServiceProvider extends ServiceProvider
 
             'site.contact.whatsapp_display' => $settings->whatsapp_number,
             'site.contact.whatsapp_message' => $settings->whatsapp_message,
-            'site.contact.whatsapp_url' => self::whatsappUrl($settings->whatsapp_number, $settings->whatsapp_message),
+            'site.contact.whatsapp_url' => self::whatsappUrl(
+                $settings->whatsapp_number,
+                $settings->whatsapp_message
+            ),
             'site.contact.facebook' => $settings->facebook_url,
             'site.contact.tiktok' => $settings->tiktok_url,
 
@@ -65,15 +64,21 @@ class AppServiceProvider extends ServiceProvider
     }
 
     /**
-     * Construye el enlace de WhatsApp con el mensaje pre-cargado.
+     * Construye el enlace de WhatsApp con el mensaje precargado.
      */
-    private static function whatsappUrl(?string $number, ?string $message): ?string
-    {
+    private static function whatsappUrl(
+        ?string $number,
+        ?string $message
+    ): ?string {
         if (! $number) {
             return null;
         }
 
         $digits = preg_replace('/\D/', '', $number);
+        if (empty($digits)) {
+            return null;
+        }
+
         $url = 'https://wa.me/'.$digits;
 
         if ($message) {
@@ -81,11 +86,5 @@ class AppServiceProvider extends ServiceProvider
         }
 
         return $url;
-=======
-     */
-    public function boot(): void
-    {
-        //
->>>>>>> f5e469399bb72d8bbc56798a0209324f59c1ffbc
     }
 }

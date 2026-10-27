@@ -17,9 +17,16 @@
         </a>
 
         {{-- Atajos de navegación: no se pintan si la lista está vacía --}}
-        @if (count(config('site.nav', [])) > 0)
+        @php
+            $hasActiveProducts = \App\Models\Product::active()->exists();
+            $navLinks = array_filter(config('site.nav', []), function ($link) use ($hasActiveProducts) {
+                return $link['url'] !== '#servicios' || $hasActiveProducts;
+            });
+        @endphp
+
+        @if (count($navLinks) > 0)
             <nav class="hidden items-center gap-1 md:flex" aria-label="Navegación principal">
-                @foreach (config('site.nav') as $link)
+                @foreach ($navLinks as $link)
                     <a href="{{ $link['url'] }}"
                         class="rounded-full px-4 py-2 text-sm font-medium text-azul-700 transition hover:bg-azul-900/5 hover:text-azul-900">
                         {{ $link['label'] }}
@@ -65,10 +72,10 @@
     </div>
 
     {{-- Menú móvil --}}
-    @if (count(config('site.nav', [])) > 0)
+    @if (count($navLinks) > 0)
         <nav id="menu-movil" class="hidden border-t border-azul-900/10 md:hidden" aria-label="Navegación móvil">
             <div class="mx-auto flex max-w-6xl flex-col gap-1 px-4 py-3 sm:px-6">
-                @foreach (config('site.nav') as $link)
+                @foreach ($navLinks as $link)
                     <a href="{{ $link['url'] }}"
                         class="rounded-lg px-3 py-2.5 text-sm font-medium text-azul-700 transition hover:bg-azul-900/5 hover:text-azul-900">
                         {{ $link['label'] }}

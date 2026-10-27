@@ -103,11 +103,32 @@ class SettingsController extends Controller
     }
 
     /**
-     * Obtiene (o crea) el registro único de configuración.
+     * Obtiene (o inicializa) el registro único de configuración.
      */
     private function settings(): SiteSetting
     {
-        return SiteSetting::first() ?? new SiteSetting();
+        $settings = SiteSetting::first();
+
+        if (! $settings) {
+            $settings = new SiteSetting([
+                'brand_name' => config('site.brand.name', 'Walther'),
+                'tagline' => config('site.brand.tagline'),
+                'hero_image_path' => config('site.hero.image'),
+                'hero_title' => config('site.hero.title'),
+                'hero_description' => config('site.hero.description'),
+                'hero_buttons' => config('site.hero.buttons'),
+                'hero2_background_path' => config('site.hero2.background'),
+                'hero2_text' => config('site.hero2.text'),
+                'hero2_video_path' => config('site.hero2.video'),
+                'whatsapp_number' => config('site.contact.whatsapp_display'),
+                'whatsapp_message' => config('site.contact.whatsapp_message'),
+                'facebook_url' => config('site.contact.facebook'),
+                'tiktok_url' => config('site.contact.tiktok'),
+                'credit_url' => config('site.credit.url'),
+            ]);
+        }
+
+        return $settings;
     }
 
     /**
@@ -118,7 +139,7 @@ class SettingsController extends Controller
      */
     private function handleUpload(Request $request, string $field, string $removeField, string $directory, ?string $currentPath): ?string
     {
-        $currentDiskPath = $currentPath ? ltrim($currentPath, 'storage/') : null;
+        $currentDiskPath = $currentPath ? preg_replace('#^storage/#', '', $currentPath) : null;
 
         if ($request->boolean($removeField)) {
             if ($currentDiskPath && Storage::disk('public')->exists($currentDiskPath)) {

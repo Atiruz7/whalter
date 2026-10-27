@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 // Menú de navegación móvil (header)
 const menuToggle = document.getElementById('menu-toggle');
 const mobileMenu = document.getElementById('menu-movil');
@@ -15,6 +15,3 @@ if (menuToggle && mobileMenu) {
         menuToggle.setAttribute('aria-expanded', String(!isOpen));
     });
 }
-=======
-//
->>>>>>> f5e469399bb72d8bbc56798a0209324f59c1ffbc

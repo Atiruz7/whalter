@@ -260,6 +260,7 @@
             <button type="submit"
                 class="rounded-full bg-azul-900 px-8 py-3.5 text-sm font-semibold text-blanco shadow-lg shadow-azul-900/20 transition hover:bg-azul-700">
                 Guardar cambios
+            </button>
         </div>
     </form>
 @endsection
